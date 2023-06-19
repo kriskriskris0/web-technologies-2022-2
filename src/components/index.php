@@ -1,57 +1,109 @@
 <?php
-$titleText = 'Лекция 16';
-$h1Text = 'Текущие данные';
-$currentYear = date('Y');
 
-function getCurrentTimeAsString() {
-    $hours = date('H');
-    $minutes = date('i');
 
-    $hoursText = getHour($hours, 'час', 'часа', 'часов');
-    $minutesText = getMin($minutes, 'минута', 'минуты', 'минут');
+//1 задание
 
-    return $hours . ' ' . $hoursText . ' ' . $minutes . ' ' . $minutesText;
+$a = -2;
+$b = 5;
+
+if ($a >= 0 and $b >= 0) {
+    echo $a - $b . ' - разность';
+}
+elseif ($a < 0 and $b < 0) {
+    echo $a * $b . ' - произведение';
+}
+else {
+    echo $a + $b . ' - сумма';
 }
 
-function getHour($hour)
-{
-    $lastHourDigit = $hour % 10;
-    if ($hour >= 5 and $hour <= 20)
-    {
-        return "часов";
-    } elseif ($lastHourDigit == 1) {
-        return 'час';
-    } elseif ($lastHourDigit == 2 or $lastHourDigit == 3 or $lastHourDigit == 4) {
-        return 'часа';
+
+// задание 2
+
+$a = rand(0, 15);
+echo "<br><br>";
+
+echo "От а до 15: ";
+while ($a <= 15) {
+    switch ($a) {
+        default:
+            echo $a . " ";
+            $a++;
+            break;
     }
 }
 
-function getMin($number, $form1, $form2, $form3) {
-    $lastDigit = $number % 10;
-    $secondLastDigit = ($number % 100) / 10;
 
-    if ($secondLastDigit == 1) {
-        return $form3;
-    } elseif ($lastDigit == 1) {
-        return $form1;
-    } elseif ($lastDigit >= 2 && $lastDigit <= 4) {
-        return $form2;
-    } else {
-        return $form3;
+//3
+echo "<br>";
+
+function sum($a, $b) {
+    return $a + $b;
+}
+function dif($a, $b) {
+    return $a - $b;
+}
+function mul($a, $b) {
+    return $a * $b;
+}
+function div($a, $b) {
+    return $a / $b;
+}
+
+$a = sum(5,6);
+$b = mul(33,66);
+$c = dif(66,33);
+$d = div(100,1);
+
+echo $a . "\n";
+echo $b . "\n";
+echo $c . "\n";
+echo $d . "\n";
+
+
+//4
+echo "<br>";
+
+function mathOperation($a, $b, $operation) {
+    switch ($operation) {
+        case '+' :
+            return sum($a, $b);
+        case '-' :
+            return dif($a, $b);
+        case '*' :
+            return mul($a, $b);
+        case '/' :
+            return div($a, $b);
     }
 }
+
+echo mathOperation(5,5,'add') . "\n";
+
+//5
+echo "<br>";
+$thisYear = date('Y ') . 'год';
+
 ?>
+    <!DOCTYPE html>
+    <html lang='ru'>
+    <head>
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+        <title></title>
+    </head>
+    <body>
+    <div>
+        <p><?= $thisYear?></p>
+    </div>
+    </body>
+    </html>
+<?php
 
+//6
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title><?php echo $titleText; ?></title>
-</head>
-<body>
-<h1><?php echo $h1Text; ?></h1>
-<p>Год: <?php echo $currentYear; ?></p>
-
-<p>Время: <?php echo getCurrentTimeAsString(); ?></p>
-</body>
-</html>
+function power($val, $pow) {
+    if ($pow == 0) {
+        return 1;
+    }
+    return $val * power($val, $pow - 1);
+}
+echo power(12, 3);
