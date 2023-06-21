@@ -1,11 +1,5 @@
 <?php
 
-define("HOST", "localhost:3306");
-define("USER", "root");
-define("PASS", "");
-define("DB", "lesson20");
-
-
 function getDb() {
     static $db = null;
     if (is_null($db)) {

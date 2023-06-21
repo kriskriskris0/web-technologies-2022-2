@@ -3,4 +3,4 @@
 <a href="/about">О нас</a>
 <a href="/gallery">Галерея</a>
 <a href="/news">Новости</a>
-<a href="/apicatalog">api Test</a>
+

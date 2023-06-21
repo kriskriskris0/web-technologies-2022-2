@@ -1,21 +1,8 @@
 <?php
-
 function getCatalog() {
-    return [
-        [
-            'name' => 'Пицца',
-            'price' => 250,
-            'image' => 'pizza.jpeg'
-        ],
-        [
-            'name' => 'Чай',
-            'price' => 50,
-            'image' => 'tea.png'
-        ],
-        [
-            'name' => 'Яблоко',
-            'price' => 25,
-            'image' => 'apple.jpg'
-        ]
-    ];
+    return getAssocResult("SELECT id, name, img, price, description FROM products");
+}
+
+function getOneProduct($id) {
+    return getAssocResult("SELECT id, name, img, price, description FROM products WHERE id = {$id}")[0];
 }
