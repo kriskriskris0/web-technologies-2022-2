@@ -4,3 +4,4 @@
 <a href="/gallery">Галерея</a>
 <a href="/news">Новости</a>
 <a href="/apicatalog">api Test</a>
+<a href="/folders">Папки</a>

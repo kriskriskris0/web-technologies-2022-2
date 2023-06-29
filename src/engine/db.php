@@ -1,37 +1,76 @@
 <?php
-
-define("HOST", "localhost:3306");
-define("USER", "root");
-define("PASS", "");
-define("DB", "lesson20");
-
-
 function getDb() {
     static $db = null;
     if (is_null($db)) {
-        $db = mysqli_connect(
-            HOST,
-            USER,
-            PASS,
-            DB) or die("Could not connect: " . mysqli_connect_error());
+        $db = new mysqli(HOST, USER, PASS, DB);
+        if ($db->connect_errno) {
+            die("Could not connect: " . $db->connect_error);
+        }
     }
     return $db;
 }
 
-function getAssocResult($sql) {
-    $result = mysqli_query(getDb(), $sql) or die(mysqli_error(getDb()));
+function getAssocResult($sql, $params = array()) {
+    $stmt = getDb()->prepare($sql);
+    if ($stmt === false) {
+        die("Error in query: " . getDb()->error);
+    }
 
+    if (!empty($params)) {
+        $types = str_repeat('s', count($params));
+        $stmt->bind_param($types, ...$params);
+    }
+
+    $stmt->execute();
+    $result = $stmt->get_result();
     $array_result = [];
 
-    while ($row = mysqli_fetch_assoc($result)) {
+    while ($row = $result->fetch_assoc()) {
         $array_result[] = $row;
     }
+
+    $stmt->close();
 
     return $array_result;
 }
 
-function getOneResult($sql) {
-    $result = mysqli_query(getDb(), $sql) or die(mysqli_error(getDb()));
+function getOneResult($sql, $params = array()) {
+    $stmt = getDb()->prepare($sql);
+    if ($stmt === false) {
+        die("Error in query: " . getDb()->error);
+    }
 
-    return mysqli_fetch_assoc($result);
+    if (!empty($params)) {
+        $types = str_repeat('s', count($params));
+        $stmt->bind_param($types, ...$params);
+    }
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    $stmt->close();
+
+    return $row;
 }
+
+function executeSql($sql, $params = array()) {
+    $stmt = getDb()->prepare($sql);
+    if ($stmt === false) {
+        die("Error in query: " . getDb()->error);
+    }
+
+    if (!empty($params)) {
+        $types = str_repeat('s', count($params));
+        $stmt->bind_param($types, ...$params);
+    }
+
+    $stmt->execute();
+    $affected_rows = $stmt->affected_rows;
+
+    $stmt->close();
+
+    return $affected_rows;
+}
+?>
+

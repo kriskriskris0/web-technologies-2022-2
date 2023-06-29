@@ -31,13 +31,13 @@ switch ($page) {
         $params['title'] = 'Каталог';
         $params['catalog'] = getCatalog();
         break;
-    case 'task20':
-        $params['title'] = 'Task20_PHP';
-        $params['directories'] = getDirectories();
-        break;
     case 'about':
         $params['title'] = 'О нас';
         $params['phone'] = 34235245325;
+        break;
+    case 'folders':
+        $params['folders'] = getFolders();
+        $layout = 'folders';
         break;
     case 'apicatalog':
         echo json_encode(getCatalog(), JSON_UNESCAPED_UNICODE);
