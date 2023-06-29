@@ -7,7 +7,7 @@ define('LAYOUTS_DIR', 'layouts/');
 
 define('HOST', 'localhost:3306');
 define('USER', 'root');
-define('PASS', 'root');
+define('PASS', '');
 define('DB', 'lesson20');
 
 include ROOT . "/engine/functions.php";
